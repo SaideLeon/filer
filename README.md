@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Filer - Gerador de Fichas de Leitura
 
-## Getting Started
+Este projeto é uma aplicação web que automatiza a busca, raspagem e geração de fichas de leitura acadêmica a partir de artigos do site [Toda Matéria](https://www.todamateria.com.br/), utilizando inteligência artificial para resumir conteúdos.
 
-First, run the development server:
+## Funcionalidades
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Busca artigos por termo no Toda Matéria
+- Raspagem automática de conteúdo, imagens e citações dos artigos
+- Geração de fichas de leitura com resumo automático via IA (Groq API)
+- Interface moderna com feedback de progresso e logs
+- Visualização das fichas geradas
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Estrutura do Projeto
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `src/components/fichador.tsx`: Componente principal da interface de geração de fichas
+- `src/components/FichaList.tsx`: Exibe uma lista de fichas de leitura
+- `src/tools/ai/fichaAgent.ts`: Integração com IA para geração de resumos e montagem da ficha
+- `src/app/api/filer/route.ts`: API route para busca e raspagem de artigos
+- `src/utils/raspagem.ts`: Funções de raspagem de dados do Toda Matéria
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Instalação
 
-## Learn More
+1. Clone o repositório:
+   ```sh
+   git clone https://github.com/seu-usuario/filer.git
+   cd filer
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. Instale as dependências:
+   ```sh
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Configure as variáveis de ambiente:
+   - Crie um arquivo `.env` na raiz com sua chave da API Groq:
+     ```
+     GROQ_API_KEY=sua_chave_groq_aqui
+     ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Rode o projeto em modo desenvolvimento:
+   ```sh
+   npm run dev
+   ```
 
-## Deploy on Vercel
+5. Acesse em [http://localhost:3000](http://localhost:3000)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Como funciona
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Digite um termo de busca e clique em "Iniciar Fichamento".
+2. O sistema busca artigos relacionados, raspa o conteúdo e envia para a IA gerar um resumo.
+3. As fichas geradas são exibidas na tela, incluindo título, autor, resumo, imagens e citação.
+
+## Tecnologias
+
+- Next.js (App Router)
+- React
+- Tailwind CSS
+- Cheerio (raspagem)
+- Axios (requisições HTTP# Filer - Gerador de Fichas de Leitura
+
+Este projeto é uma aplicação web que automatiza a busca, raspagem e geração de fichas de leitura acadêmica a partir de artigos do site [Toda Matéria](https://www.todamateria.com.br/), utilizando inteligência artificial para resumir conteúdos.
+
+## Funcionalidades
+
+- Busca artigos por termo no Toda Matéria
+- Raspagem automática de conteúdo, imagens e citações dos artigos
+- Geração de fichas de leitura com resumo automático via IA (Groq API)
+- Interface moderna com feedback de progresso e logs
+- Visualização das fichas geradas
+
+## Estrutura do Projeto
+
+- `src/components/fichador.tsx`: Componente principal da interface de geração de fichas
+- `src/components/FichaList.tsx`: Exibe uma lista de fichas de leitura
+- `src/tools/ai/fichaAgent.ts`: Integração com IA para geração de resumos e montagem da ficha
+- `src/app/api/filer/route.ts`: API route para busca e raspagem de artigos
+- `src/utils/raspagem.ts`: Funções de raspagem de dados do Toda Matéria
+
+## Instalação
+
+1. Clone o repositório:
+   ```sh
+   git clone https://github.com/seu-usuario/filer.git
+   cd filer
+   ```
+
+2. Instale as dependências:
+   ```sh
+   npm install
+   ```
+
+3. Configure as variáveis de ambiente:
+   - Crie um arquivo `.env` na raiz com sua chave da API Groq:
+     ```
+     GROQ_API_KEY=sua_chave_groq_aqui
+     ```
+
+4. Rode o projeto em modo desenvolvimento:
+   ```sh
+   npm run dev
+   ```
+
+5. Acesse em [http://localhost:3000](http://localhost:3000)
+
+## Como funciona
+
+1. Digite um termo de busca e clique em "Iniciar Fichamento".
+2. O sistema busca artigos relacionados, raspa o conteúdo e envia para a IA gerar um resumo.
+3. As fichas geradas são exibidas na tela, incluindo título, autor, resumo, imagens e citação.
+
+## Tecnologias
+
+- Next.js (App Router)
+- React
+- Tailwind CSS
+- Cheerio (raspagem)
+- Axios (requisições HTTP
