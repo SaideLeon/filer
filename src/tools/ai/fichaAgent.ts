@@ -1,8 +1,9 @@
 import { Groq } from 'groq-sdk';
 import { ConteudoRaspado, FichaLeitura } from '../../types';
+import { env } from "@/lib/env";
 
- 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+const apiKey = env.GROQ_API_KEY;
+const groq = new Groq({ apiKey: apiKey });
 
 async function gerarResumoIA(texto: string, titulo: string, promptCustomizado?: string): Promise<string> {
   const promptBase = promptCustomizado ||

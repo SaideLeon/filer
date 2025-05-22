@@ -1,6 +1,17 @@
 "use client";
 import React, { useState } from 'react';
-import { criarFichaLeitura, FichaLeitura } from '@/tools/ai/fichaAgent'; 
+import type { FichaLeitura, ConteudoRaspado } from '../types';
+
+// Função utilitária para chamar a API de fichamento
+async function gerarFichaLeitura(conteudo: ConteudoRaspado, promptCustomizado?: string): Promise<FichaLeitura> {
+  const response = await fetch('/api/fichamento', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ conteudo, promptCustomizado })
+  });
+  if (!response.ok) throw new Error('Erro ao gerar ficha: ' + response.status);
+  return await response.json();
+}
 
 export default function FichadorComponent() {
   const [termoBusca, setTermoBusca] = useState('');
@@ -12,7 +23,7 @@ export default function FichadorComponent() {
   const [paginaAtual, setPaginaAtual] = useState(0);
 
   const adicionarLog = (mensagem: string) => {
-    setLog((prev) => [...prev.slice(-2), mensagem]);
+    setLog((prev: string[]) => [...prev.slice(-2), mensagem]);
   };
 
   const iniciarFichamento = async () => {
@@ -25,7 +36,7 @@ export default function FichadorComponent() {
 
     let resultados: { titulo: string; url: string }[] = [];
     try {
-      const response = await fetch('/api/filer', {
+      const response = await fetch('/api/scraper', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ termoBusca, todasPaginas })
@@ -52,7 +63,7 @@ export default function FichadorComponent() {
       try {
         adicionarLog(`📄 Processando página ${i + 1} de ${resultados.length}: ${url}`);
         
-        const conteudoResp = await fetch('/api/filer', {
+        const conteudoResp = await fetch('/api/scraper', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url })
@@ -61,7 +72,8 @@ export default function FichadorComponent() {
         if (!conteudoResp.ok) throw new Error('Erro ao raspar conteúdo: ' + conteudoResp.status);
         const conteudo = await conteudoResp.json();
         
-        const ficha = await criarFichaLeitura(conteudo);
+        // Chama API para gerar ficha no backend
+        const ficha = await gerarFichaLeitura(conteudo);
         fichasGeradas.push(ficha);
         setFichas([...fichasGeradas]); // Atualiza em tempo real
 
